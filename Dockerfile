@@ -27,6 +27,19 @@ RUN pip install --upgrade pip && \
 COPY ./src /code
 WORKDIR /code
 
+ARG DJANGO_SECRET_KEY
+ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+
+#run manage.py collectstatic
+RUN python manage.py vendor_pull
+RUN python manage.py collectstatic --noinput
+
+#whitenoise
+
+
+
+
+
 # Set environment variables for Django
 ARG DJANGO_SECRET_KEY
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
